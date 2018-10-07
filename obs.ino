@@ -78,3 +78,84 @@ int readPing() { // read the ultrasonic sensor distance
   int cm = uS/US_ROUNDTRIP_CM;
   return cm;
 }
+void moveStop() {leftMotor1.run(RELEASE); leftMotor2.run(RELEASE); rightMotor1.run(RELEASE); rightMotor2.run(RELEASE);}  // stop the motors.
+//-------------------------------------------------------------------------------------------------------------------------------------
+void moveForward() {
+    motorSet = "FORWARD";
+    leftMotor1.run(FORWARD);      // turn it on going forward
+    leftMotor2.run(FORWARD);      // turn it on going forward
+    rightMotor1.run(FORWARD);     // turn it on going forward
+    rightMotor2.run(FORWARD);     // turn it on going forward
+  for (speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) // slowly bring the speed up to avoid loading down the batteries too quickly
+  {
+    leftMotor1.setSpeed(speedSet);
+    leftMotor2.setSpeed(speedSet);
+    rightMotor1.setSpeed(speedSet); 
+    rightMotor2.setSpeed(speedSet);
+    delay(5);
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------
+void moveBackward() {
+    motorSet = "BACKWARD";
+    leftMotor1.run(BACKWARD);     // turn it on going backward
+    leftMotor2.run(BACKWARD);     // turn it on going backward
+    rightMotor1.run(BACKWARD);    // turn it on going backward
+    rightMotor2.run(BACKWARD);    // turn it on going backward
+  for (speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) // slowly bring the speed up to avoid loading down the batteries too quickly
+  {
+    leftMotor1.setSpeed(speedSet);
+    leftMotor2.setSpeed(speedSet);
+    rightMotor1.setSpeed(speedSet); 
+    rightMotor2.setSpeed(speedSet); 
+    delay(5);
+  }
+}  
+//-------------------------------------------------------------------------------------------------------------------------------------
+void turnRight() {
+  motorSet = "RIGHT";
+  leftMotor1.run(FORWARD);      // turn motor 1 forward
+  leftMotor2.run(FORWARD);      // turn motor 2 forward
+  rightMotor1.run(BACKWARD);    // turn motor 3 backward
+  rightMotor2.run(BACKWARD);    // turn motor 4 backward
+  rightMotor1.setSpeed(speedSet+MAX_SPEED_OFFSET);      
+  rightMotor2.setSpeed(speedSet+MAX_SPEED_OFFSET);     
+  delay(1500); // run motors this way for 1500        
+  motorSet = "FORWARD";
+  leftMotor1.run(FORWARD);      // set both motors back to forward
+  leftMotor2.run(FORWARD);
+  rightMotor1.run(FORWARD);
+  rightMotor2.run(FORWARD);      
+}  
+//-------------------------------------------------------------------------------------------------------------------------------------
+void turnLeft() {
+  motorSet = "LEFT";
+  leftMotor1.run(BACKWARD);      // turn motor 1 backward
+  leftMotor2.run(BACKWARD);      // turn motor 2 backward
+  leftMotor1.setSpeed(speedSet+MAX_SPEED_OFFSET);     
+  leftMotor2.setSpeed(speedSet+MAX_SPEED_OFFSET);    
+  rightMotor1.run(FORWARD);     // turn motor 3 forward
+  rightMotor2.run(FORWARD);     // turn motor 4 forward
+  delay(1500); // run motors this way for 1500  
+  motorSet = "FORWARD";
+  leftMotor1.run(FORWARD);      // turn it on going forward
+  leftMotor2.run(FORWARD);      // turn it on going forward
+  rightMotor1.run(FORWARD);     // turn it on going forward
+  rightMotor2.run(FORWARD);     // turn it on going forward
+}  
+//-------------------------------------------------------------------------------------------------------------------------------------
+void turnAround() {
+  motorSet = "RIGHT";
+  leftMotor1.run(FORWARD);      // turn motor 1 forward
+  leftMotor2.run(FORWARD);      // turn motor 2 forward
+  rightMotor1.run(BACKWARD);    // turn motor 3 backward
+  rightMotor2.run(BACKWARD);    // turn motor 4 backward
+  rightMotor1.setSpeed(speedSet+MAX_SPEED_OFFSET);      
+  rightMotor2.setSpeed(speedSet+MAX_SPEED_OFFSET);
+  delay(1700); // run motors this way for 1700
+  motorSet = "FORWARD";
+  leftMotor1.run(FORWARD);      // set both motors back to forward
+  leftMotor2.run(FORWARD);
+  rightMotor1.run(FORWARD);
+  rightMotor2.run(FORWARD);      
+}  
