@@ -37,3 +37,44 @@ void loop() {
   moveForward();  // move forward
   delay(500);
  }
+void changePath() {
+  moveStop();   // stop forward movement
+  myservo.write(36);  // check distance to the right
+    delay(500);
+    rightDistance = readPing(); //set right distance
+    delay(500);
+    myservo.write(144);  // check distace to the left
+    delay(700);
+    leftDistance = readPing(); //set left distance
+    delay(500);
+    myservo.write(90); //return to center
+    delay(100);
+    compareDistance();
+  }
+
+  
+void compareDistance()   // find the longest distance
+{
+  if (leftDistance>rightDistance) //if left is less obstructed 
+  {
+    turnLeft();
+  }
+  else if (rightDistance>leftDistance) //if right is less obstructed
+  {
+    turnRight();
+  }
+   else //if they are equally obstructed
+  {
+    turnAround();
+  }
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+
+int readPing() { // read the ultrasonic sensor distance
+  delay(70);   
+  unsigned int uS = sonar.ping();
+  int cm = uS/US_ROUNDTRIP_CM;
+  return cm;
+}
