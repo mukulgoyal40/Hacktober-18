@@ -21,3 +21,19 @@ int leftDistance, rightDistance; //distances on either side
 int curDist = 0;
 String motorSet = "";
 int speedSet = 0;
+void setup() {
+  myservo.attach(10);  // attaches the servo on pin 10 (SERVO_1 on the Motor Drive Shield to the servo object 
+  myservo.write(90); // tells the servo to position at 90-degrees ie. facing forward.
+  delay(1000); // delay for one seconds
+ }
+//------------------------------------------------------------------------------------------------------------------------------------
+
+//---------------------------------------------MAIN LOOP ------------------------------------------------------------------------------
+void loop() {
+  myservo.write(90);  // move eyes forward
+  delay(90);
+  curDist = readPing();   // read distance
+  if (curDist < COLL_DIST) {changePath();}  // if forward is blocked change direction
+  moveForward();  // move forward
+  delay(500);
+ }
