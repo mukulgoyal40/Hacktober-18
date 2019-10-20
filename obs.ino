@@ -1,5 +1,5 @@
 #include <AFMotor.h>      //add Adafruit Motor Shield library
-#include <Servo.h>        //add Servo Motor library    ....        
+#include <Servo.h>        //add Servo Motor library     
 #include <NewPing.h>      //add Ultrasonic sensor librar
 
 #define TRIG_PIN A4 // Pin A0 on the Motor Drive Shield soldered to the ultrasonic sensor
